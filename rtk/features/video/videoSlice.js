@@ -19,7 +19,7 @@ const fetchVideo = createAsyncThunk('video/fetchVideo', async () => {
 const videoSlice = createSlice({
     name: 'video',
     initialState,
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder.addCase(fetchVideo.pending, (state, action) => {
             state.loading = true;
             state.video = {};
