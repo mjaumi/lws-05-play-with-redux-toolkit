@@ -14,7 +14,7 @@ const fetchRelatedVideos = createAsyncThunk('relatedVideos/fetchRelatedVideos', 
     const response = await fetch(`http://localhost:9000/videos?${tagsText}`);
     const videos = await response.json();
 
-    // sorting the videos based on views here
+    // sorting the videos in descending order based on views here
     const sortedVideos = videos.sort((vid1, vid2) => {
         const views1 = parseFloat(vid1.views.slice(0, -1));
         const views2 = parseFloat(vid2.views.slice(0, -1));
