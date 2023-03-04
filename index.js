@@ -1,6 +1,6 @@
 const store = require('./rtk/app/store');
 const { fetchVideo } = require('./rtk/features/video/videoSlice');
-const { fetchVideos } = require('./rtk/features/videosByTags/videosByTagsSlice');
+const { fetchRelatedVideos } = require('./rtk/features/relatedVideos/relatedVideosSlice');
 
 let isFetchVideoCalled = false;
 
@@ -9,10 +9,9 @@ store.subscribe(() => {
     const tags = store.getState().video.video?.tags;
 
     if (tags && !isFetchVideoCalled) {
-        const tagsArray = tags.map(tag => `tags_like=${tag}`);
-        const tagsText = tagsArray.join('&');
         isFetchVideoCalled = true;
-        store.dispatch(fetchVideos(tagsText));
+        // fetching related videos once when the tags are found
+        store.dispatch(fetchRelatedVideos(tags));
     }
 });
 
