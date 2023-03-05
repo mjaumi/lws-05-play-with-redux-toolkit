@@ -1,3 +1,4 @@
+require('util').inspect.defaultOptions.depth = null;
 const store = require('./rtk/app/store');
 const { fetchVideo } = require('./rtk/features/video/videoSlice');
 const { fetchRelatedVideos } = require('./rtk/features/relatedVideos/relatedVideosSlice');

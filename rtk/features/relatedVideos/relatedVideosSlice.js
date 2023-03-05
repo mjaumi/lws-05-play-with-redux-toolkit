@@ -10,24 +10,11 @@ const initialState = {
 
 // fetching random videos by tags here with async thunk
 const fetchRelatedVideos = createAsyncThunk('relatedVideos/fetchRelatedVideos', async (tags) => {
-    const tagsText = tags.map(tag => `tags_like=${tag}`).join('&');
-    const response = await fetch(`http://localhost:9000/videos?${tagsText}`);
+    const queryString = tags.map(tag => `tags_like=${tag}`).join('&') + '&_sort=views&_order=desc';
+    const response = await fetch(`http://localhost:9000/videos?${queryString}`);
     const videos = await response.json();
 
-    // sorting the videos in descending order based on views here
-    const sortedVideos = videos.sort((vid1, vid2) => {
-        const views1 = parseFloat(vid1.views.slice(0, -1));
-        const views2 = parseFloat(vid2.views.slice(0, -1));
-
-        if (views1 < views2) {
-            return 1;
-        } else if (views1 > views2) {
-            return -1;
-        }
-        return 0;
-    });
-
-    return sortedVideos;
+    return videos;
 });
 
 // creating videos by tags slice here
