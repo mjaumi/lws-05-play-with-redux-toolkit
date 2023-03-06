@@ -37,7 +37,7 @@ const relateVideosSlice = createSlice({
         builder.addCase(fetchRelatedVideos.rejected, (state, action) => {
             state.loading = false;
             state.videos = [];
-            state.error = action.error;
+            state.error = action.error?.message;
         });
     },
 });
